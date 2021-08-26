@@ -244,12 +244,39 @@ const definitions = [
       },*/
     ],
   },
-  {
-    id: 'tumor segmentation',
-    label: 'tumor segmentation',
-    icon: 'edit',
-    buttons: [
-	      {
+  { //draw_CV
+	id: 'tumor segmentation(CV)',
+	label: 'Fast-Annotation(CV)',
+	icon: 'edit',
+	buttons: [
+	  { //draw_CV_Y
+		id: 'CV(Yellow)',
+		label: 'Yellow',
+		icon: 'brush',
+		//
+		type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+		commandName: 'setToolActive',
+		commandOptions: { toolName: 'FreehandRoi_CV' },
+	  },
+	  { //draw_CV_B
+		id: 'CV(Blue)',
+		label: 'Blue',
+		icon: 'brush',
+		//
+		type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+		commandName: 'setToolActive',
+		commandOptions: { toolName: 'FreehandRoi_CV_B' },
+	  },
+	  { //draw_CV_Pu
+		id: 'CV(purple)',
+		label: 'Purple',
+		icon: 'brush',
+		//
+		type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+		commandName: 'setToolActive',
+		commandOptions: { toolName: 'FreehandRoi_CV_Pu' },
+	  },
+	  {
         id: 'Eraser',
         label: 'Eraser',
         icon: 'eraser',
@@ -258,7 +285,40 @@ const definitions = [
         commandName: 'setToolActive',
         commandOptions: { toolName: 'Eraser' },
       },
-	  	{ //draw_CV
+      {
+        id: 'Download_CV',
+        label: 'Download_CV',
+        icon: 'create-screen-capture',
+        //
+        type: TOOLBAR_BUTTON_TYPES.COMMAND,
+        commandName: 'Download_CV',
+      },
+      {
+        id: 'Download_series',
+        label: 'Download_series',
+        icon: 'angle-double-down',
+        //
+        type: TOOLBAR_BUTTON_TYPES.COMMAND,
+        commandName: 'Download_series',
+      },
+	],
+  },
+  {
+    id: 'tumor segmentation',
+    label: 'tumor segmentation',
+    icon: 'edit',
+    buttons: [
+	      /*{
+        id: 'Eraser',
+        label: 'Eraser',
+        icon: 'eraser',
+        //
+        type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+        commandName: 'setToolActive',
+        commandOptions: { toolName: 'Eraser' },
+      },*/
+        //
+	  	/*{ //draw_CV
         id: 'tumor segmentation(CV)',
         label: 'tumor segmentation(CV)',
         icon: 'edit',
@@ -266,7 +326,7 @@ const definitions = [
         type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
         commandName: 'setToolActive',
         commandOptions: { toolName: 'FreehandRoi_CV' },
-      },
+      },*/
 		{ //draw_test
         id: 'tumor segmentation(AI_B)',
         label: 'tumor segmentation(AI_B)',
@@ -327,6 +387,15 @@ const definitions = [
 		type: TOOLBAR_BUTTON_TYPES.COMMAND,
 		commandName: 'start_drawing',
 	  },
+	  {
+		id: 'Contours draw back',
+		label: 'Contours draw back',
+		icon: 'brush',
+        //
+        type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+        commandName: 'setToolActive',
+        commandOptions: { toolName: 'FreehandRoi_TMB' },
+      },
 	  {
 		id: 'Exit2DMPR',
 		label: 'Exit 3D segmentation',

@@ -22,7 +22,18 @@ const refreshCornerstoneViewports = () => {
     if (enabledElement.image) {
       cornerstone.updateImage(enabledElement.element);
 	  console.log(enabledElement.image.imageId);
-	  //console.log(enabledElement);
+	  
+	  //////////////////////////////
+	  var patient_id = (enabledElement.image.imageId).split("/");
+	  var patient_id = patient_id[2] + "-" + patient_id[3] + "-" + patient_id[4] + "-" + patient_id[5] + "-" + patient_id[6] + "-" + patient_id[7];
+	  var dataUrl= "http://140.116.156.197:5000/pre_upload?number=" + patient_id;
+	  var xhr = new XMLHttpRequest()
+	  xhr.open('GET',dataUrl, true)
+	  xhr.send()
+	  var data;
+	  xhr.onload = function(){
+	  data = JSON.parse(this.responseText);}
+	  //////////////////////////////
     }
   });
 };
@@ -222,6 +233,50 @@ const commandsModule = ({ servicesManager }) => {
 		total3D(input_file);*/
 		
 	},     //total3D_drawing
+	Download_CV : ({ viewports }) => {
+		
+		console.log('hi');
+		const element = getEnabledElement(viewports.activeViewportIndex);
+		const enabledElement = cornerstone.getEnabledElement(element);		
+	    var patient_id = (enabledElement.image.imageId).split("/");
+	    patient_id = patient_id[5] + '-' + patient_id[7];
+		var random = Math.random();
+		var dataUrl= "http://140.116.156.197:5000/download_singleCV?number=" + patient_id + "&" + random;
+		
+		fetch(dataUrl).then(res => res.blob().then(blob => {
+		var a = document.createElement('a');
+		var url = window.URL.createObjectURL(blob);
+		var filename = patient_id + '.json';
+		a.href = url;
+		a.download = filename;
+		a.click();
+		window.URL.revokeObjectURL(url);
+		}))
+	
+	},  	//Download_CV
+	
+	Download_series : ({ viewports }) => {
+		
+		console.log('hi');
+		const element = getEnabledElement(viewports.activeViewportIndex);
+		const enabledElement = cornerstone.getEnabledElement(element);		
+	    var patient_id = (enabledElement.image.imageId).split("/");
+		var series_id  = patient_id[5];
+	    patient_id = patient_id[5] + '-' + patient_id[7];
+		var random = Math.random();
+		var dataUrl= "http://140.116.156.197:5000/download_series?number=" + patient_id + "-" + random;
+		
+		fetch(dataUrl).then(res => res.blob().then(blob => {
+		var a = document.createElement('a');
+		var url = window.URL.createObjectURL(blob);
+		var filename = series_id + '.zip';
+		a.href = url;
+		a.download = filename;
+		a.click();
+		window.URL.revokeObjectURL(url);
+		}))
+	
+	},  	//Download_series
 	
     showDownloadViewportModal: ({ title, viewports }) => {
       const activeViewportIndex = viewports.activeViewportIndex;
@@ -492,7 +547,17 @@ const commandsModule = ({ servicesManager }) => {
       commandFn: actions.total3D_drawing,
       storeContexts: ['viewports'],
       options: {},
+    },
+    Download_CV: {  //Download_CV
+      commandFn: actions.Download_CV,
+      storeContexts: ['viewports'],
+      options: {},
     },	
+    Download_series: {  //Download_series
+      commandFn: actions.Download_series,
+      storeContexts: ['viewports'],
+      options: {},
+    },
   };
 
   return {
