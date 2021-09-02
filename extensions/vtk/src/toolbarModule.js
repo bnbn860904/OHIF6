@@ -138,7 +138,7 @@ const definitions = [
     context: 'ACTIVE_VIEWPORT::CORNERSTONE',
   },
   ///////////////////////////////
-  {
+  /*{
     id: '3DMPR',
     label: 'TMB_Semi_automated',
     icon: 'cube',
@@ -147,7 +147,7 @@ const definitions = [
     type: TOOLBAR_BUTTON_TYPES.COMMAND,
     commandName: 'mpr3d',
     context: 'ACTIVE_VIEWPORT::CORNERSTONE',
-  },
+  },*/
   ////////////////////////////////
 ];
 

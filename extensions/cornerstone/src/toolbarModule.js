@@ -327,7 +327,24 @@ const definitions = [
         commandName: 'setToolActive',
         commandOptions: { toolName: 'FreehandRoi_CV' },
       },*/
+	  	{ //draw_test
+        id: 'Pre-execute tumor segmentation',
+        label: 'Pre-execute tumor segmentation',
+        icon: 'user',
+        //
+		type: TOOLBAR_BUTTON_TYPES.COMMAND,
+		commandName: 'Pre_execute_AI',
+	  },
 		{ //draw_test
+        id: 'Pre-execute result',
+        label: 'Pre-execute result',
+        icon: 'edit',
+        //
+        type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+        commandName: 'setToolActive',
+        commandOptions: { toolName: 'Brush3' },
+      },
+		/*{ //draw_test
         id: 'tumor segmentation(AI_B)',
         label: 'tumor segmentation(AI_B)',
         icon: 'edit',
@@ -335,8 +352,17 @@ const definitions = [
         type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
         commandName: 'setToolActive',
         commandOptions: { toolName: 'Brush2' },
+      },*/
+      {
+        id: 'BrushEraser',
+        label: 'Eraser',
+        icon: 'eraser',
+        //
+        type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+        commandName: 'setToolActive',
+        commandOptions: { toolName: 'BrushEraser' },
       },	  
-		{ //draw_test
+		/*{ //draw_test
         id: 'tumor segmentation(AI_R)',
         label: 'tumor segmentation(AI_R)',
         icon: 'edit',
@@ -344,7 +370,7 @@ const definitions = [
         type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
         commandName: 'setToolActive',
         commandOptions: { toolName: 'FreehandRoi_AI' },
-      },
+      },*/
 	],
   },
   {

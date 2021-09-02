@@ -75,6 +75,7 @@ export default function init({ servicesManager, configuration }) {
 	  csTools.FreehandRoiTool_TMB,
 	  csTools.FreehandRoiTool_CV_B,
 	  csTools.FreehandRoiTool_CV_Pu,
+	  csTools.Brush3Tool,
     ],
     other: [
       csTools.PanTool,
@@ -88,6 +89,13 @@ export default function init({ servicesManager, configuration }) {
       csTools.OverlayTool,
     ],
   };
+  
+  csTools.addTool(csTools.BrushTool, {
+    name: 'BrushEraser',
+    configuration: {
+      alwaysEraseOnClick: true,
+    },
+  });
 
   let tools = [];
   Object.keys(toolsGroupedByType).forEach(toolsGroup =>

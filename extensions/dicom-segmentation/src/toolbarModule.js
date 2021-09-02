@@ -23,7 +23,7 @@ const TOOLBAR_BUTTON_TYPES = {
         commandName: 'setToolActive',
         commandOptions: { toolName: 'Brush' },
       },
-      {
+      /*{
         id: 'SphericalBrush',
         label: 'Spherical',
         icon: 'sphere',
@@ -31,7 +31,7 @@ const TOOLBAR_BUTTON_TYPES = {
         type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
         commandName: 'setToolActive',
         commandOptions: { toolName: 'SphericalBrush' },
-      },
+      },*/
       {
         id: 'CorrectionScissors',
         label: 'Correction Scissors',
@@ -44,7 +44,7 @@ const TOOLBAR_BUTTON_TYPES = {
       {
         id: 'BrushEraser',
         label: 'Eraser',
-        icon: 'trash',
+        icon: 'eraser',
         //
         type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
         commandName: 'setToolActive',

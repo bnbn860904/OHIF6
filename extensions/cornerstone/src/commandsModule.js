@@ -26,7 +26,7 @@ const refreshCornerstoneViewports = () => {
 	  //////////////////////////////
 	  var patient_id = (enabledElement.image.imageId).split("/");
 	  var patient_id = patient_id[2] + "-" + patient_id[3] + "-" + patient_id[4] + "-" + patient_id[5] + "-" + patient_id[6] + "-" + patient_id[7];
-	  var dataUrl= "http://140.116.156.197:5000/pre_upload?number=" + patient_id;
+	  var dataUrl= "http://127.0.0.1:5000/pre_upload?number=" + patient_id;
 	  var xhr = new XMLHttpRequest()
 	  xhr.open('GET',dataUrl, true)
 	  xhr.send()
@@ -192,7 +192,7 @@ const commandsModule = ({ servicesManager }) => {
 	start_drawing : ({ viewports }) => {
 		
 	  console.log('hi');
-	  var dataUrl= "http://140.116.156.197:5000/start_drawing";
+	  var dataUrl= "http://127.0.0.1:5000/start_drawing";
 	  var xhr = new XMLHttpRequest()
 	  xhr.open('GET',dataUrl, true)
 	  xhr.send()
@@ -201,7 +201,7 @@ const commandsModule = ({ servicesManager }) => {
 	  xhr.onload = function(){
 		data = JSON.parse(this.responseText);
 		console.log(data);
-		input_file = `http://140.116.156.197:5000/upload?number=volume99`
+		input_file = `http://127.0.0.1:5000/upload?number=volume99`
 		test(input_file);
 		}	
 	},     //start-drawing
@@ -216,7 +216,7 @@ const commandsModule = ({ servicesManager }) => {
 	    var patient_id = (enabledElement.image.imageId).split("/");
 	    var patient_id = patient_id[2] + "-" + patient_id[3] + "-" + patient_id[4] + "-" + patient_id[5] + "-" + patient_id[6] + "-" + patient_id[7];		
 		
-		var dataUrl= "http://140.116.156.197:5000/dcm2vti?number=" + patient_id;		
+		var dataUrl= "http://127.0.0.1:5000/dcm2vti?number=" + patient_id;		
 		var xhr = new XMLHttpRequest()
 		xhr.open('GET',dataUrl, true)
 		xhr.send()
@@ -225,7 +225,7 @@ const commandsModule = ({ servicesManager }) => {
 			data = JSON.parse(this.responseText);
 			console.log(data.series_id);
 			//var input_file = `http://140.116.156.197:5000/upload_3D`
-			var input_file = `http://140.116.156.197:5000/upload_3D?number=` + data.series_id;
+			var input_file = `http://127.0.0.1:5000/upload_3D?number=` + data.series_id;
 			total3D(input_file);
 			}
 		/*var input_file
@@ -241,7 +241,7 @@ const commandsModule = ({ servicesManager }) => {
 	    var patient_id = (enabledElement.image.imageId).split("/");
 	    patient_id = patient_id[5] + '-' + patient_id[7];
 		var random = Math.random();
-		var dataUrl= "http://140.116.156.197:5000/download_singleCV?number=" + patient_id + "&" + random;
+		var dataUrl= "http://127.0.0.1:5000/download_singleCV?number=" + patient_id + "&" + random;
 		
 		fetch(dataUrl).then(res => res.blob().then(blob => {
 		var a = document.createElement('a');
@@ -264,7 +264,7 @@ const commandsModule = ({ servicesManager }) => {
 		var series_id  = patient_id[5];
 	    patient_id = patient_id[5] + '-' + patient_id[7];
 		var random = Math.random();
-		var dataUrl= "http://140.116.156.197:5000/download_series?number=" + patient_id + "-" + random;
+		var dataUrl= "http://127.0.0.1:5000/download_series?number=" + patient_id + "-" + random;
 		
 		fetch(dataUrl).then(res => res.blob().then(blob => {
 		var a = document.createElement('a');
@@ -277,6 +277,25 @@ const commandsModule = ({ servicesManager }) => {
 		}))
 	
 	},  	//Download_series
+	
+	Pre_execute_AI : ({ viewports }) => {
+		
+		console.log('hi');
+		const element = getEnabledElement(viewports.activeViewportIndex);
+		const enabledElement = cornerstone.getEnabledElement(element);		
+	    var patient_id = (enabledElement.image.imageId).split("/");
+		var series_id  = patient_id[5];
+		var dataUrl= "http://127.0.0.1:5000/Pre_execute_AI?number=" + series_id;
+		var xhr = new XMLHttpRequest()
+		xhr.open('GET',dataUrl, true)
+		xhr.send()
+		var data ;
+		xhr.onload = function(){
+			data = JSON.parse(this.responseText);
+			window.alert("Pre_execute_AI done !!");
+		}		
+		
+	},  	//Pre_execute_AI
 	
     showDownloadViewportModal: ({ title, viewports }) => {
       const activeViewportIndex = viewports.activeViewportIndex;
@@ -555,6 +574,11 @@ const commandsModule = ({ servicesManager }) => {
     },	
     Download_series: {  //Download_series
       commandFn: actions.Download_series,
+      storeContexts: ['viewports'],
+      options: {},
+    },
+    Pre_execute_AI: {  //Pre_execute_AI
+      commandFn: actions.Pre_execute_AI,
       storeContexts: ['viewports'],
       options: {},
     },
