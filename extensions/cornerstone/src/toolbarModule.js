@@ -344,6 +344,15 @@ const definitions = [
         commandName: 'setToolActive',
         commandOptions: { toolName: 'Brush3' },
       },
+		{ //draw_test
+        id: 'brush',
+        label: 'brush',
+        icon: 'brush',
+        //
+        type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+        commandName: 'setToolActive',
+        commandOptions: { toolName: 'Brush4' },
+      },
 		/*{ //draw_test
         id: 'tumor segmentation(AI_B)',
         label: 'tumor segmentation(AI_B)',
