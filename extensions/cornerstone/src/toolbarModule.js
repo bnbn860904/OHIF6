@@ -431,14 +431,14 @@ const definitions = [
         commandName: 'setToolActive',
         commandOptions: { toolName: 'FreehandRoi_TMB' },
       },
-	  {
+	  /*{
 		id: 'Exit2DMPR',
 		label: 'Exit 3D segmentation',
 		icon: 'times',
 		//
 		type: TOOLBAR_BUTTON_TYPES.COMMAND,
 		commandName: 'setCornerstoneLayout',
-	  },  
+	  }, */ 
 	],
   },
   {
