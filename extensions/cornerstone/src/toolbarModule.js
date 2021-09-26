@@ -244,6 +244,15 @@ const definitions = [
       },*/
     ],
   },
+  {
+	id: 'FreehandRoi',
+	label: 'User-defined contour',
+	icon: 'measure-temp',
+	//
+	type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+	commandName: 'setToolActive',
+	commandOptions: { toolName: 'FreehandRoi' },
+  },
   { //draw_CV
 	id: 'tumor segmentation(CV)',
 	label: 'Fast-Annotation(CV)',
@@ -285,14 +294,22 @@ const definitions = [
         commandName: 'setToolActive',
         commandOptions: { toolName: 'Eraser' },
       },
-      {
+	  {
+		id: 'Test',
+		label: 'Download annotation coordinates',
+		icon: 'create-screen-capture',
+		//
+		type: TOOLBAR_BUTTON_TYPES.COMMAND,
+		commandName: 'Test',
+	  },
+      /*{
         id: 'Download_CV',
         label: 'Download_CV',
         icon: 'create-screen-capture',
         //
         type: TOOLBAR_BUTTON_TYPES.COMMAND,
         commandName: 'Download_CV',
-      },
+      },*/
       {
         id: 'Download_series',
         label: 'Download_series',

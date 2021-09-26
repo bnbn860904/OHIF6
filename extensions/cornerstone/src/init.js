@@ -71,7 +71,6 @@ export default function init({ servicesManager, configuration }) {
 	  csTools.FreehandRoiTool_CV,
 	  csTools.FreehandRoiTool_AI,
 	  csTools.Brush2Tool,
-	  csTools.FreehandRoiTool,
 	  csTools.FreehandRoiTool_TMB,
 	  csTools.FreehandRoiTool_CV_B,
 	  csTools.FreehandRoiTool_CV_Pu,

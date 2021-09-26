@@ -297,6 +297,68 @@ const commandsModule = ({ servicesManager }) => {
 		
 	},  	//Pre_execute_AI
 	
+	Test : ({ viewports }) => {
+		
+		const element = getEnabledElement(viewports.activeViewportIndex);
+		var toolState1 = cornerstoneTools.getToolState(element, 'FreehandRoi');
+		var toolState2 = cornerstoneTools.getToolState(element, 'FreehandRoi_CV');
+		var toolState3 = cornerstoneTools.getToolState(element, 'FreehandRoi_CV_B');
+		var toolState4 = cornerstoneTools.getToolState(element, 'FreehandRoi_CV_Pu');
+		var download_data = {};
+		
+		function getCoordinate(toolState){
+		if(toolState == undefined){
+			return [];
+		}
+		var coor = toolState.data;
+		var data = [];				
+		coor.forEach(function(coor){
+			console.log(coor);
+			var points = coor.handles.points			
+			points.forEach(function(points){
+			delete points.active
+			delete points.highlight
+			delete points.lines			
+			});
+			console.log(points);
+			data.push(points)			
+		});
+			return data;
+		};
+		function getName(toolState){
+		if(toolState == undefined){
+			name = 'nothing'
+			return name;
+		}
+		var name;
+		if(toolState.data[0].test == ''){
+			name = toolState.data[0].color;
+		} else {
+			name = toolState.data[0].test;
+		}
+			return name;
+		}	
+		
+		var coordinate1 = getCoordinate(toolState1);
+		var coordinate2 = getCoordinate(toolState2);
+		var coordinate3 = getCoordinate(toolState3);
+		var coordinate4 = getCoordinate(toolState4);
+		var name2 = getName(toolState2);
+		var name3 = getName(toolState3);
+		var name4 = getName(toolState4);
+		download_data['User-defined'] = coordinate1;
+		download_data[name2] = coordinate2;
+		download_data[name3] = coordinate3;
+		download_data[name4] = coordinate4;
+		
+		var aTag = document.createElement('a');
+		var blob = new Blob([JSON.stringify(download_data, null, 2)], {type : 'application/json'});
+		aTag.download = 'Test';
+		aTag.href = URL.createObjectURL(blob);
+		aTag.click();
+		URL.revokeObjectURL(blob);
+						
+	},  	//Test	
     showDownloadViewportModal: ({ title, viewports }) => {
       const activeViewportIndex = viewports.activeViewportIndex;
       const { UIModalService } = servicesManager.services;
@@ -579,6 +641,11 @@ const commandsModule = ({ servicesManager }) => {
     },
     Pre_execute_AI: {  //Pre_execute_AI
       commandFn: actions.Pre_execute_AI,
+      storeContexts: ['viewports'],
+      options: {},
+    },
+    Test: {  //Test
+      commandFn: actions.Test,
       storeContexts: ['viewports'],
       options: {},
     },

@@ -23,6 +23,8 @@ const parseMeasurementsData = measurementsData => {
 
     annotations.forEach(annotation => {
       const { toolType, imagePath } = annotation;
+	  
+	  console.log(toolType);
 
       if (isToolSupported(toolType)) {
         const imageId = getImageIdForImagePath(imagePath);

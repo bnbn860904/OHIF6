@@ -39187,7 +39187,8 @@ function (_BaseAnnotationTool) {
             }
 
             var text = textBoxText.call(_this2, data);
-            Object(_drawing_drawLinkedTextBox_js__WEBPACK_IMPORTED_MODULE_19__["default"])(context, element, data.handles.textBox, text, data.handles.points, textBoxAnchorPoints, color, lineWidth, 0, true);
+            //Object(_drawing_drawLinkedTextBox_js__WEBPACK_IMPORTED_MODULE_19__["default"])(context, element, data.handles.textBox, text, data.handles.points, textBoxAnchorPoints, color, lineWidth, 0, true);
+			Object(_drawing_drawLinkedTextBox_js__WEBPACK_IMPORTED_MODULE_19__["default"])(context, element, data.handles.textBox, data.test, data.handles.points, textBoxAnchorPoints, color, lineWidth, 0, true);
           }
         });
       };
@@ -39872,7 +39873,22 @@ function (_BaseAnnotationTool) {
       }
 		
 	  console.log(data.handles.points); //API插入點
-	  //console.log(eventData);
+	  //////////////////////////////////////////
+	  document.body.onmouseup = function(e){
+		if(e.button===2){
+			var guest = window.prompt('Please enter the name of the coordinates', 'coordinate1');
+			sessionStorage.setItem('key1', guest);
+			console.log(guest);
+		}  
+	  }
+	  var sess = sessionStorage.getItem('key1');
+	  //////////////////////////////////////////
+	  if (sess == null){
+		  sess = ''
+	  }
+	  console.log(data);
+	  data['test'] = sess
+	 	  
 	  
       _externalModules_js__WEBPACK_IMPORTED_MODULE_7__["default"].cornerstone.updateImage(element);
       this.fireModifiedEvent(element, data);
