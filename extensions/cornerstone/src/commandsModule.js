@@ -353,7 +353,7 @@ const commandsModule = ({ servicesManager }) => {
 		
 		var aTag = document.createElement('a');
 		var blob = new Blob([JSON.stringify(download_data, null, 2)], {type : 'application/json'});
-		aTag.download = 'Test';
+		aTag.download = 'annotation';
 		aTag.href = URL.createObjectURL(blob);
 		aTag.click();
 		URL.revokeObjectURL(blob);

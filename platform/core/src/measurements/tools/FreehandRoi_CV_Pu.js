@@ -7,11 +7,11 @@ const displayFunction = data => {
 
 
 
-export const freehandRoi = {
-  id: 'FreehandRoi',
+export const FreehandRoi_CV_Pu = {
+  id: 'FreehandRoi_CV_Pu',
   name: 'Freehand',
   toolGroup: 'allTools',
-  cornerstoneToolType: 'FreehandRoi',
+  cornerstoneToolType: 'FreehandRoi_CV_Pu',
   options: {
     measurementTable: {
       displayFunction,
