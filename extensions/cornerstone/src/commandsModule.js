@@ -358,7 +358,78 @@ const commandsModule = ({ servicesManager }) => {
 		aTag.click();
 		URL.revokeObjectURL(blob);
 						
-	},  	//Test	
+	},  	//Test
+	
+	coortest : ({ viewports }) => {
+		
+		console.log('hi');		
+		const element = getEnabledElement(viewports.activeViewportIndex);
+		const enabledElement = cornerstone.getEnabledElement(element);	
+		const firstId        = enabledElement.image.imageId;
+		
+	    var patient_id = (enabledElement.image.imageId).split("/");
+		var series_id    = patient_id[5];
+		var instance_id  = patient_id[7];
+	
+		function draw(element, imageId, points){
+
+		const test2 = {}
+		test2['handles'] = {}
+		test2['color'] = 'blue'
+		test2['invalidated'] = true;	
+		test2.handles['textBox'] = {}
+		test2.handles.textBox['freehand'] = {x:257,y:100}
+		test2.handles['points'] = points;
+		
+		cornerstone.loadImage(imageId).then(image => {
+		cornerstone.displayImage(element, image);
+		const element3 = document.getElementsByClassName('viewport-element')[0];
+		cornerstone.enable(element3);
+		const enabledElement3 = cornerstone.getEnabledElement(element3);
+		enabledElement3.toolStateManager.add(enabledElement3.element, 'FreehandRoi_AI', test2);
+		})						
+		}
+		
+		for (let i = 0; i < 100; i++){
+		
+		var id = instance_id.split(".");
+		var lastId = 0;
+		var lastId = String(parseInt(id[id.length-1]) -i);
+		var newId  = '';
+		id.pop();
+		id.forEach(p => newId = newId + p +'.');		
+		newId = newId + lastId;
+		console.log(newId);
+		var dataUrl = "http://127.0.0.1:5000/DB_AI_get?number=" + newId;
+		var xhr = new XMLHttpRequest()
+		xhr.open('GET',dataUrl, true)
+		xhr.send()
+		var data ;
+		xhr.onload = function(){
+			data = JSON.parse(this.responseText);
+			for(let k = 0; k < data.liver.length; k++){
+				var len = data.liver[k].length;
+				var points = [];
+				var instanceId = data.instance_id;
+				console.log(data);
+				for(var j = 0; j <len; j++){
+					if(j % 10 == 0){
+						var ob = {x:data.liver[k][j][0],y:data.liver[k][j][1]}
+						points.push(ob);
+						}	
+				}
+				console.log(points);
+				//test.handles['points'] = points;
+				console.log('1111111');
+				var imageId = patient_id[0] +'/'+ patient_id[1] +'/'+ patient_id[2] +'/'+ patient_id[3] +'/'+ patient_id[4] +'/'+ patient_id[5] +'/'+ patient_id[6] +'/'+ instanceId +'/'+ patient_id[8] +'/'+ patient_id[9];
+				console.log(imageId);
+				draw(element, imageId, points);
+			}
+		}			
+		}
+
+	},  	//coortest
+	
     showDownloadViewportModal: ({ title, viewports }) => {
       const activeViewportIndex = viewports.activeViewportIndex;
       const { UIModalService } = servicesManager.services;
@@ -646,6 +717,11 @@ const commandsModule = ({ servicesManager }) => {
     },
     Test: {  //Test
       commandFn: actions.Test,
+      storeContexts: ['viewports'],
+      options: {},
+    },
+    coortest: {  //coortest
+      commandFn: actions.coortest,
       storeContexts: ['viewports'],
       options: {},
     },

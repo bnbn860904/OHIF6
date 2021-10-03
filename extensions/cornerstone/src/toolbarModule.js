@@ -116,6 +116,14 @@ const definitions = [
       behavior: TOOLBAR_BUTTON_BEHAVIORS.CINE,
     },
   },
+  /*{
+    id: 'coortest',
+    label: 'coortest',
+    icon: 'reset',
+    //
+    type: TOOLBAR_BUTTON_TYPES.COMMAND,
+    commandName: 'coortest',
+  },*/
   {
     id: 'More',
     label: 'More',
@@ -357,9 +365,8 @@ const definitions = [
         label: 'Pre-execute result',
         icon: 'edit',
         //
-        type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
-        commandName: 'setToolActive',
-        commandOptions: { toolName: 'Brush3' },
+		type: TOOLBAR_BUTTON_TYPES.COMMAND,
+		commandName: 'coortest',
       },
 		{ //draw_test
         id: 'brush',
