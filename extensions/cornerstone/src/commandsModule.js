@@ -16,6 +16,7 @@ const scroll = cornerstoneTools.import('util/scroll');
 
 const { studyMetadataManager } = OHIF.utils;
 const { setViewportSpecificData } = OHIF.redux.actions;
+const { getSeriesInfo } = OHIF.studies;
 
 const refreshCornerstoneViewports = () => {
   cornerstone.getEnabledElements().forEach(enabledElement => {
@@ -304,6 +305,7 @@ const commandsModule = ({ servicesManager }) => {
 		var toolState2 = cornerstoneTools.getToolState(element, 'FreehandRoi_CV');
 		var toolState3 = cornerstoneTools.getToolState(element, 'FreehandRoi_CV_B');
 		var toolState4 = cornerstoneTools.getToolState(element, 'FreehandRoi_CV_Pu');
+		var toolState5 = cornerstoneTools.getToolState(element, 'FreehandRoi_AI');
 		var download_data = {};
 		
 		function getCoordinate(toolState){
@@ -343,6 +345,7 @@ const commandsModule = ({ servicesManager }) => {
 		var coordinate2 = getCoordinate(toolState2);
 		var coordinate3 = getCoordinate(toolState3);
 		var coordinate4 = getCoordinate(toolState4);
+		var coordinate5 = getCoordinate(toolState5);
 		var name2 = getName(toolState2);
 		var name3 = getName(toolState3);
 		var name4 = getName(toolState4);
@@ -350,6 +353,7 @@ const commandsModule = ({ servicesManager }) => {
 		download_data[name2] = coordinate2;
 		download_data[name3] = coordinate3;
 		download_data[name4] = coordinate4;
+		download_data['Liver-tumor'] = coordinate5;
 		
 		var aTag = document.createElement('a');
 		var blob = new Blob([JSON.stringify(download_data, null, 2)], {type : 'application/json'});
@@ -370,12 +374,28 @@ const commandsModule = ({ servicesManager }) => {
 	    var patient_id = (enabledElement.image.imageId).split("/");
 		var series_id    = patient_id[5];
 		var instance_id  = patient_id[7];
-	
+		console.log(viewports);
+		
+		var taUrl= "http://127.0.0.1:5000/getInstance?number=" + series_id;
+		var xhr1 = new XMLHttpRequest()
+		xhr1.open('GET',taUrl, true)
+		xhr1.send()
+		//var inresult;
+		xhr1.onload = function(){
+			var instance_list = JSON.parse(this.responseText);
+			console.log(instance_list.result);
+			var inresult = instance_list.result;
+		
+			//return inresult;
+		
+		//var inresult = getId();
+		//console.log(inresult);
+
 		function draw(element, imageId, points){
 
 		const test2 = {}
 		test2['handles'] = {}
-		test2['color'] = 'blue'
+		test2['color'] = 'red'
 		test2['invalidated'] = true;	
 		test2.handles['textBox'] = {}
 		test2.handles.textBox['freehand'] = {x:257,y:100}
@@ -390,15 +410,15 @@ const commandsModule = ({ servicesManager }) => {
 		})						
 		}
 		
-		for (let i = 0; i < 100; i++){
-		
+		for (let i = 0; i < inresult.length ; i++){
+			
 		var id = instance_id.split(".");
-		var lastId = 0;
-		var lastId = String(parseInt(id[id.length-1]) -i);
+		//var lastId = 0;
+		//var lastId = String(parseInt(id[id.length-1]) -i);
 		var newId  = '';
-		id.pop();
-		id.forEach(p => newId = newId + p +'.');		
-		newId = newId + lastId;
+		/*id.pop();
+		id.forEach(p => newId = newId + p +'.');*/		
+		newId = inresult[i];
 		console.log(newId);
 		var dataUrl = "http://127.0.0.1:5000/DB_AI_get?number=" + newId;
 		var xhr = new XMLHttpRequest()
@@ -427,7 +447,7 @@ const commandsModule = ({ servicesManager }) => {
 			}
 		}			
 		}
-
+		}
 	},  	//coortest
 	
     showDownloadViewportModal: ({ title, viewports }) => {
@@ -548,7 +568,7 @@ const commandsModule = ({ servicesManager }) => {
     }) => {
 
       const study = studyMetadataManager.get(StudyInstanceUID);
-
+		
       const displaySet = study.findDisplaySet(ds => {
         return (
           ds.images &&
