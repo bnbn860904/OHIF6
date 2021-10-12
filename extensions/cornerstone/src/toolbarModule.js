@@ -447,23 +447,41 @@ const definitions = [
         commandName: 'setToolActive',
         commandOptions: { toolName: 'FreehandRoi4' },
       },
-	  {
+	  /*{
 		id: 'start-drawing',
 		label: 'start-drawing',
 		icon: 'youtube',
 		//
 		type: TOOLBAR_BUTTON_TYPES.COMMAND,
 		commandName: 'start_drawing',
-	  },
+	  },*/
 	  {
 		id: 'start-drawing2',
-		label: 'start-drawing2',
+		label: 'start-drawing',
 		icon: 'youtube',
 		//
 		type: TOOLBAR_BUTTON_TYPES.COMMAND,
 		commandName: 'start_drawing2',
 	  },
-	  {
+	  { // Adjustment tool
+        id: 'tumor Adjustment tool',
+        label: 'TMB Adjustment tool',
+        icon: 'edit',
+        //
+        type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+        commandName: 'setToolActive',
+        commandOptions: { toolName: 'FreehandRoi_TMB' },
+      },
+      {
+        id: 'BrushEraser',
+        label: 'Eraser',
+        icon: 'eraser',
+        //
+        type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+        commandName: 'setToolActive',
+        commandOptions: { toolName: 'Eraser' },
+      },
+	  /*{
 		id: 'Contours draw back',
 		label: 'Contours draw back',
 		icon: 'brush',
@@ -471,7 +489,7 @@ const definitions = [
         type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
         commandName: 'setToolActive',
         commandOptions: { toolName: 'FreehandRoi_TMB' },
-      },
+      },*/
 	  /*{
 		id: 'Exit2DMPR',
 		label: 'Exit 3D segmentation',
@@ -491,14 +509,14 @@ const definitions = [
     commandName: 'setCornerstoneLayout',
     context: 'ACTIVE_VIEWPORT::VTK',
   },
-  {
+  /*{
     id: '3D',
     label: '3D Perspective view',
     icon: 'sphere',
     //
     type: TOOLBAR_BUTTON_TYPES.COMMAND,
     commandName: 'total3D_drawing',
-  },
+  },*/
 ];
 
 export default {
