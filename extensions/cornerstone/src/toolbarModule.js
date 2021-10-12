@@ -456,6 +456,14 @@ const definitions = [
 		commandName: 'start_drawing',
 	  },
 	  {
+		id: 'start-drawing2',
+		label: 'start-drawing2',
+		icon: 'youtube',
+		//
+		type: TOOLBAR_BUTTON_TYPES.COMMAND,
+		commandName: 'start_drawing2',
+	  },
+	  {
 		id: 'Contours draw back',
 		label: 'Contours draw back',
 		icon: 'brush',

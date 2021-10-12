@@ -450,6 +450,62 @@ const commandsModule = ({ servicesManager }) => {
 		}
 	},  	//coortest
 	
+	start_drawing2 : ({ viewports }) => {
+		
+		console.log('hi123');
+		const element = getEnabledElement(viewports.activeViewportIndex);
+		const enabledElement = cornerstone.getEnabledElement(element);		
+	    var patient_id = (enabledElement.image.imageId).split("/");
+		var series_id  = patient_id[5];
+		var dataUrl= "http://127.0.0.1:5000/start_drawing2?number=" + series_id;
+		var xhr = new XMLHttpRequest()
+		xhr.open('GET',dataUrl, true)
+		xhr.send()		
+		xhr.onload = function(){
+			var data = JSON.parse(this.responseText);
+			console.log(data);			
+			for(var Id in data) {
+				var points = [];
+				var coor = data[Id];
+				for(var i = 0; i < coor.length; i++){
+					console.log(coor);
+					if(i % 10 == 0){
+						var ob = {x:coor[i][0],y:coor[i][1]}
+						points.push(ob);
+						}	
+				
+			var nId = Id.replace('.dcm', '')
+			console.log(nId);
+			var imageId = patient_id[0] +'/'+ patient_id[1] +'/'+ patient_id[2] +'/'+ patient_id[3] +'/'+ patient_id[4] +'/'+ patient_id[5] +'/'+ patient_id[6] +'/'+ nId +'/'+ patient_id[8] +'/'+ patient_id[9];
+			console.log(points);
+			}
+			draw(element, imageId, points)
+			}
+			window.alert("start_drawing2 done !!");
+		}
+		
+		
+		function draw(element, imageId, points){
+
+		const test2 = {}
+		test2['handles'] = {}
+		test2['color'] = 'red'
+		test2['invalidated'] = true;	
+		test2.handles['textBox'] = {}
+		test2.handles.textBox['freehand'] = {x:257,y:100}
+		test2.handles['points'] = points;
+		
+		cornerstone.loadImage(imageId).then(image => {
+		cornerstone.displayImage(element, image);
+		const element3 = document.getElementsByClassName('viewport-element')[0];
+		cornerstone.enable(element3);
+		const enabledElement3 = cornerstone.getEnabledElement(element3);
+		enabledElement3.toolStateManager.add(enabledElement3.element, 'FreehandRoi_TMB', test2);
+		})						
+		}
+		
+	},  	//start_drawing2
+	
     showDownloadViewportModal: ({ title, viewports }) => {
       const activeViewportIndex = viewports.activeViewportIndex;
       const { UIModalService } = servicesManager.services;
@@ -742,6 +798,11 @@ const commandsModule = ({ servicesManager }) => {
     },
     coortest: {  //coortest
       commandFn: actions.coortest,
+      storeContexts: ['viewports'],
+      options: {},
+    },
+    start_drawing2: {  //start_drawing2
+      commandFn: actions.start_drawing2,
       storeContexts: ['viewports'],
       options: {},
     },
